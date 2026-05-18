@@ -30,24 +30,23 @@ export default function App() {
         {/* slide 1 */}
         <SwiperSlide className="relative">
           <Image
-            src="/slideimage/bunny.jpg"
+            src="/bunny.jpg"
             alt="logo"
             width={735}
             height={425}
             className="object-cover w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh]"
           />
-          <div className="absolute bottom-15 left-10 flex items-end justify-start px-4">
+          <div className="absolute inset-0 flex items-end justify-start px-4">
             <div>
               <h2 className="text-white text-lg sm:text-2xl md:text-4xl font-bold">
-                Title
+                Find Your Next Read
               </h2>
-              <p>description</p>
 
               <Link
                 href="/"
                 className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-purple-600 text-white text-sm sm:text-base font-medium hover:from-purple-600 hover:to-blue-500 transition-all duration-300"
               >
-                Adopt Now
+                View All Books
               </Link>
             </div>
           </div>
@@ -55,24 +54,23 @@ export default function App() {
         {/* slide 2 */}
         <SwiperSlide className="relative">
           <Image
-            src="/slideimage/Cat-1.jpg"
+            src=""
             alt="logo"
             width={735}
             height={425}
             className="object-cover w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh]"
           />
-          <div className="absolute bottom-15 left-10 flex items-end justify-start px-4">
+          <div className="absolute inset-0 flex items-end justify-start px-4">
             <div>
               <h2 className="text-white text-lg sm:text-2xl md:text-4xl font-bold">
-                Title
+                Find Your Next Read
               </h2>
-              <p>description</p>
 
               <Link
                 href="/"
                 className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-purple-600 text-white text-sm sm:text-base font-medium hover:from-purple-600 hover:to-blue-500 transition-all duration-300"
               >
-                Adopt Now
+                View All Books
               </Link>
             </div>
           </div>
@@ -81,24 +79,23 @@ export default function App() {
         {/* slide 3 */}
         <SwiperSlide className="relative">
           <Image
-            src="/slideimage/Hourse 1.jpg"
+            src="/slide-image/Hourse 1.jpg"
             alt="logo"
             width={735}
             height={425}
             className="object-cover w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh]"
           />
-          <div className="absolute bottom-15 left-10 flex items-end justify-start px-4">
+          <div className="absolute inset-0 flex items-end justify-start px-4">
             <div>
               <h2 className="text-white text-lg sm:text-2xl md:text-4xl font-bold">
-                Title
+                Find Your Next Read
               </h2>
-              <p>description</p>
 
               <Link
                 href="/"
                 className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-purple-600 text-white text-sm sm:text-base font-medium hover:from-purple-600 hover:to-blue-500 transition-all duration-300"
               >
-                Adopt Now
+                View All Books
               </Link>
             </div>
           </div>
@@ -106,24 +103,23 @@ export default function App() {
         {/* slide 4 */}
         <SwiperSlide className="relative">
           <Image
-            src="/slideimage/pandas.jpg"
+            src="/slide-image/pandas.jpg"
             alt="logo"
             width={735}
             height={425}
             className="object-cover w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh]"
           />
-          <div className="absolute bottom-15 left-10 flex items-end justify-start px-4">
+          <div className="absolute inset-0 flex items-end justify-start px-4">
             <div>
               <h2 className="text-white text-lg sm:text-2xl md:text-4xl font-bold">
-                Title
+                Find Your Next Read
               </h2>
-              <p>description</p>
 
               <Link
                 href="/"
                 className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-purple-600 text-white text-sm sm:text-base font-medium hover:from-purple-600 hover:to-blue-500 transition-all duration-300"
               >
-                Adopt Now
+                View All Books
               </Link>
             </div>
           </div>
@@ -131,24 +127,23 @@ export default function App() {
         {/* slide 5 */}
         <SwiperSlide className="relative">
           <Image
-            src="/slideimage/parakeet female.jpg"
+            src="/slide-image/parakeet female.jpg"
             alt="logo"
             width={735}
             height={225}
             className="object-cover w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh]"
           />
-          <div className="absolute bottom-15 left-10 flex items-end justify-start px-4">
+          <div className="absolute inset-0 flex items-end justify-start px-4">
             <div>
               <h2 className="text-white text-lg sm:text-2xl md:text-4xl font-bold">
-                Title
+                Find Your Next Read
               </h2>
-              <p>description</p>
 
               <Link
                 href="/"
                 className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-purple-600 text-white text-sm sm:text-base font-medium hover:from-purple-600 hover:to-blue-500 transition-all duration-300"
               >
-                Adopt Now
+                View All Books
               </Link>
             </div>
           </div>
@@ -156,24 +151,23 @@ export default function App() {
         {/* slide 6 */}
         <SwiperSlide className="relative">
           <Image
-            src="/slideimage/pets-1.jpg"
+            src="/slide-image/pets-1.jpg"
             alt="logo"
             width={735}
             height={225}
-            className="object-cover w-full h-[20vh] sm:h-[30vh] md:h-[40vh] lg:h-[20vh]"
+            className="object-cover w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh]"
           />
-          <div className="absolute bottom-15 left-10 flex items-end justify-start px-4">
+          <div className="absolute inset-0 flex items-end justify-start px-4">
             <div>
               <h2 className="text-white text-lg sm:text-2xl md:text-4xl font-bold">
-                Title
+                Find Your Next Read
               </h2>
-              <p>description</p>
 
               <Link
                 href="/"
                 className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-purple-600 text-white text-sm sm:text-base font-medium hover:from-purple-600 hover:to-blue-500 transition-all duration-300"
               >
-                Adopt Now
+                View All Books
               </Link>
             </div>
           </div>

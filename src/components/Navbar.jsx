@@ -20,32 +20,31 @@ const Navbar = () => {
               height={60}
               className="object-cover h-auto w-auto"
             />
-            <span className="text-2xl bg-linear-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
+            <span className="text-2xl bg-linear-to-r from-purple-500 to-green-500 bg-clip-text text-transparent">
               Pet Adoption
             </span>
           </Link>
         </div>
 
-        <ul className="hidden md:flex items-center gap-6 text-sm text-white">
+        <ul className="hidden md:flex items-center gap-6 text-sm text-green-500">
           <li className="relative group">
             <Link
               href="/"
-              className="px-2 py-1 transition-all duration-300 hover:text-gray-300"
+              className="px-2 text-2xl font-bold py-1 transition-all duration-300 hover:text-green-600"
             >
               Home
             </Link>
-            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-linear-to-r from-purple-500 to-blue-500 transition-all duration-300 group-hover:w-full"></span>
+            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-linear-to-r from-purple-500 to-green-500 transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li className="relative group">
             <Link
               href="/pets"
-              className="px-2 py-1 transition-all duration-300 hover:text-gray-300"
+              className="px-2 py-1 text-2xl font-bold transition-all duration-300 hover:text-green-600"
             >
               All Pets
             </Link>
-            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-linear-to-r from-purple-500 to-blue-500 transition-all duration-300 group-hover:w-full"></span>
+            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-linear-to-r from-purple-500 to-green-500 transition-all duration-300 group-hover:w-full"></span>
           </li>
-          
         </ul>
 
         <div
@@ -89,7 +88,6 @@ const Navbar = () => {
                 All Pets
               </Link>
             </li>
-            
           </ul>
 
           <Link
@@ -99,7 +97,6 @@ const Navbar = () => {
             backdrop-blur-md border-2 border-blue-600 text-blue-600
             hover:bg-blue-500 hover:text-white transition-all duration-300"
           >
-            
             My Profile
           </Link>
         </div>

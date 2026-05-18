@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import SlideSection from "@/components/SlideSection";
+
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-center min-h-screen bg-gray-300">
+    <div>
       
       <main>
         <SlideSection />
