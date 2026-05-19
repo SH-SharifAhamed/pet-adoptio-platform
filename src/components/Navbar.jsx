@@ -92,7 +92,7 @@ const Navbar = () => {
 
       {open && (
         <div className="md:hidden px-6 pb-4 text-white bg-[#191924]/10 backdrop-blur-md border-b border-[#191924]/20">
-          <ul className="flex flex-col gap-4 text-sm font-bold">
+          <ul className="flex flex-col gap-4 text-green-500 text-sm font-bold">
             <li>
               <Link href="/" onClick={() => setOpen(false)}>
                 Home
