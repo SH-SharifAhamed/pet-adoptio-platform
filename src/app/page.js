@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
+
 import SlideSection from "@/components/SlideSection";
 
 
 export default function Home() {
+
   return (
     <div>
       

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const petCard = ({ pets }) => {
-  const { petName, gender, imageUrl, Fee, Age, healthStatus } = pets;
+  const { _id, petName, gender, imageUrl, Fee, Age, healthStatus } = pets;
 
   return (
     <div className="bg-white rounded-lg shadow-md items-center border">
@@ -27,16 +27,14 @@ const petCard = ({ pets }) => {
 
         <div className="flex w-full gap-1 justify-between p-2">
           <Link href={"/signin"}>
-            <button className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300">
+            <button className="cursor-pointer inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300">
               Adopt
             </button>
           </Link>
 
-          <Link href={`/pets/${pets._id}`}>
-            <button className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300">
-              view Details
-            </button>
-          </Link>
+          <button className="cursor-pointer inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300">
+            <Link href={`/pets/${_id}`}>view Details</Link>
+          </button>
         </div>
       </div>
     </div>
