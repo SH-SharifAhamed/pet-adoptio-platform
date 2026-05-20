@@ -1,4 +1,5 @@
 
+import HomeSection from "@/components/HomeSection";
 import SlideSection from "@/components/SlideSection";
 
 
@@ -9,9 +10,8 @@ export default function Home() {
       
       <main>
         <SlideSection />
+        <HomeSection />
       </main>
-      
-      <h1>Home Page</h1>
     </div>
   );
 }
