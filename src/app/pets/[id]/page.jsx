@@ -1,4 +1,7 @@
+import { EditModal } from "@/components/EditModal";
+import { Button } from "@heroui/react";
 import Image from "next/image";
+import { BiEdit } from "react-icons/bi";
 import { MdLocationPin } from "react-icons/md";
 import { TbCoinTaka } from "react-icons/tb";
 
@@ -27,6 +30,11 @@ const DetailsPage = async ({ params }) => {
 
   return (
     <div className=" justify-center items-center p-10 my-25">
+      <div className="flex gap-2 justify-end mb-5">
+                 <EditModal data={data} />
+        <Button variant="outline">Delete</Button>
+      </div>
+
       <Image
         alt={petName}
         src={imageUrl}

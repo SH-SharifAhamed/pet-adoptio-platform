@@ -246,7 +246,7 @@ const addPet = () => {
               <TextField name="description" isRequired>
                 <Label>Description</Label>
                 <TextArea
-                  placeholder="Describe the travel experience..."
+                  placeholder="Describe the pet..."
                   className="rounded-3xl"
                 />
                 <FieldError />
