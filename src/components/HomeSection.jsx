@@ -7,7 +7,7 @@ import Link from "next/link";
 import { MdPets } from "react-icons/md";
 
 const HomeSection = async () => {
-  const res = await fetch("http://localhost:5000/pets", {
+  const res = await fetch(process.env.NEXT_API_URL, {
     cache: "no-cache",
   });
   const data = await res.json();

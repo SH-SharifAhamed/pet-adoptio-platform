@@ -1,7 +1,7 @@
 import PetCard from "@/components/petCard";
 
 const PetPage = async () => {
-  const res = await fetch("http://localhost:5000/pets");
+  const res = await fetch(process.env.NEXT_API_URL);
   const data = await res.json();
   // console.log(data);
 

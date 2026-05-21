@@ -8,7 +8,7 @@ import { TbCoinTaka } from "react-icons/tb";
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
 
-  const res = await fetch(`http://localhost:5000/pets/${id}`, {
+  const res = await fetch(`process.env.NEXT_API_URL/${id}`, {
     cache: "no-cache",
   });
 

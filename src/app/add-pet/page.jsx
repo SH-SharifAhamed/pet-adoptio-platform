@@ -24,7 +24,7 @@ const addPet = () => {
     const pet = Object.fromEntries(formData.entries());
 
     try {
-      const res = await fetch("http://localhost:5000/pets", {
+      const res = await fetch(process.env.NEXT_API_URL, {
         method: "POST",
         headers: {
           "content-type": "application/json",

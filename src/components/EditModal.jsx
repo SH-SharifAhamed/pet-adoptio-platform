@@ -43,7 +43,7 @@ export function EditModal({ data }) {
     console.log(pet);
 
     try {
-      const res = await fetch(`http://localhost:5000/pets/${_id}`, {
+      const res = await fetch(`process.env.NEXT_API_URL/${_id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
