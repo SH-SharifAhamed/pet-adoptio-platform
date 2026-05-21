@@ -32,7 +32,7 @@ const DetailsPage = async ({ params }) => {
   return (
     <div className=" justify-center items-center p-10 my-25">
       <div className="flex gap-2 justify-end mb-5">
-                 <EditModal data={data} />
+        <EditModal data={data} />
         <Button variant="outline">Delete</Button>
       </div>
 
