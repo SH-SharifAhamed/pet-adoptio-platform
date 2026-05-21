@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,15 +35,15 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      
-      <body className={"inter.className min-h-full flex flex-col bg-[#669bbc]"}>
-        
-        <Navbar />
 
+      <body className={"inter.className min-h-full flex flex-col bg-[#669bbc]"}>
+
+        <Navbar />
         <main className="bg-[#003049]">
           {children}
           <ToastContainer position="top-right" autoClose={3000} />
         </main>
+        <Footer />
         
       </body>
     </html>
