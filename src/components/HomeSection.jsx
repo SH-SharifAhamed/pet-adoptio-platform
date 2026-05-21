@@ -1,10 +1,8 @@
-// "use client";
 
-import { ArrowChevronDown, ArrowChevronRight } from "@gravity-ui/icons";
-import { Card } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { MdPets } from "react-icons/md";
+import { FaChevronRight } from "react-icons/fa";
 
 const HomeSection = async () => {
   const res = await fetch(
@@ -14,60 +12,117 @@ const HomeSection = async () => {
     },
   );
   const data = await res.json();
-  console.log(data);
+
+  // Health status color mapping
+  const healthColors = {
+    Healthy: "bg-green-500/10 text-green-400 border-green-500/20",
+    Sick: "bg-red-500/10 text-red-400 border-red-500/20",
+    Recovering: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+    Treatment: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  };
 
   return (
-    <div className="max-w-6xl mx-auto my-15">
-      <h1 className="flex items-center gap-2 mb-2 text-2xl font-bold">
-        <MdPets /> Recent Pets
-      </h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+      {/* Section Header */}
+      <div className="flex items-center gap-3 mb-8">
+        <div className="p-2.5 rounded-xl bg-linear-to-br from-purple-600/20 to-green-600/20 border border-purple-500/20">
+          <MdPets className="text-2xl text-purple-400" />
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
+          Recent Pets
+        </h1>
+      </div>
+
+      {/* Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {data.slice(0, 6).map((pets) => {
           const { _id, petName, gender, imageUrl, Fee, Age, healthStatus } =
             pets;
+          const healthClass =
+            healthColors[healthStatus] || healthColors.Healthy;
+
           return (
-            <div key={_id} className="flex flex-col items-center">
-              <Card>
+            <div
+              key={_id}
+              className="group relative bg-[#1a1a2e] rounded-2xl overflow-hidden border border-white/5 shadow-xl hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 hover:-translate-y-1"
+            >
+              {/* Image Container */}
+              <div className="relative h-52 w-full overflow-hidden">
                 <Image
-                  alt="petName"
+                  alt={petName || "Pet image"}
                   src={imageUrl}
-                  width={200}
-                  height={200}
-                  className="h-40 w-full rounded-xl object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <h2 className="text-slate-700 text-left text-lg font-semibold w-full">
-                  {petName}
-                </h2>
+                <div className="absolute inset-0 bg-linear-to-t from-[#1a1a2e] via-transparent to-transparent opacity-60" />
 
-                <div className="grid grid-cols-2 p-2 text-slate-700">
-                  <p>Gender: {gender}</p>
-                  <p>Fee: {Fee}</p>
-                  <p>Age: {Age}</p>
-                  <p>Health Status: {healthStatus}</p>
+                {/* Health Status Badge */}
+                <div className="absolute top-3 right-3">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-semibold border backdrop-blur-md ${healthClass}`}
+                  >
+                    {healthStatus}
+                  </span>
                 </div>
 
-                <div className="flex w-full gap-1 justify-between p-2">
-                  <Link href={"/signin"}>
-                    <button className="cursor-pointer inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300">
-                      Adopt
-                    </button>
+                {/* Pet Name Overlay */}
+                <div className="absolute bottom-3 left-3 right-3">
+                  <h2 className="text-white text-xl font-bold truncate drop-shadow-lg">
+                    {petName}
+                  </h2>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-4 space-y-3">
+                {/* Info Grid */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-white/5 rounded-lg p-2.5 border border-white/5">
+                    <p className="text-gray-400 text-xs mb-0.5">Gender</p>
+                    <p className="text-white text-sm font-semibold capitalize">
+                      {gender}
+                    </p>
+                  </div>
+                  <div className="bg-white/5 rounded-lg p-2.5 border border-white/5">
+                    <p className="text-gray-400 text-xs mb-0.5">Age</p>
+                    <p className="text-white text-sm font-semibold">{Age}</p>
+                  </div>
+                  <div className="bg-white/5 rounded-lg p-2.5 border border-white/5 col-span-2">
+                    <p className="text-gray-400 text-xs mb-0.5">Adoption Fee</p>
+                    <p className="text-green-400 text-lg font-bold">${Fee}</p>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-2 pt-1">
+                  <Link
+                    href="/signin"
+                    className="flex-1 text-center py-2.5 rounded-xl bg-linear-to-r from-purple-600 to-green-600 text-white text-sm font-semibold hover:opacity-90 hover:shadow-lg hover:shadow-green-500/25 active:scale-95 transition-all duration-300"
+                  >
+                    Adopt Now
                   </Link>
-
-                  <button className="cursor-pointer inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300">
-                    <Link href={`/pets/${_id}`}>view Details</Link>
-                  </button>
+                  <Link
+                    href={`/pets/${_id}`}
+                    className="flex-1 text-center py-2.5 rounded-xl border border-white/10 text-gray-300 text-sm font-semibold hover:bg-white/5 hover:text-white hover:border-purple-500/30 active:scale-95 transition-all duration-300"
+                  >
+                    View Details
+                  </Link>
                 </div>
-              </Card>
+              </div>
             </div>
           );
         })}
       </div>
-      <div className="flex justify-center items-center mt-4">
+
+      {/* View All Button */}
+      <div className="flex justify-center items-center mt-10">
         <Link
           href="/pets"
-          className="flex justify-center items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300"
+          className="group flex items-center gap-2 px-6 py-3 rounded-full bg-linear-to-r from-purple-600 to-green-600 text-white text-sm font-semibold hover:opacity-90 hover:shadow-lg hover:shadow-green-500/25 active:scale-95 transition-all duration-300"
         >
-          View All Pets <ArrowChevronRight size={20} />
+          View All Pets
+          <FaChevronRight className="text-xs transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>
     </div>
