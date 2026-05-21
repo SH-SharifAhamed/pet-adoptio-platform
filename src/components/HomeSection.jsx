@@ -7,9 +7,12 @@ import Link from "next/link";
 import { MdPets } from "react-icons/md";
 
 const HomeSection = async () => {
-  const res = await fetch(process.env.NEXT_API_URL, {
-    cache: "no-cache",
-  });
+  const res = await fetch(
+    "https://pet-adoption-server-omega-liard.vercel.app/pets",
+    {
+      cache: "no-cache",
+    },
+  );
   const data = await res.json();
   console.log(data);
 

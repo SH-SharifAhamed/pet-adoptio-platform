@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -26,15 +28,18 @@ const petCard = ({ pets }) => {
         </div>
 
         <div className="flex w-full gap-1 justify-between p-2">
-          <Link href={"/signin"}>
-            <button className="cursor-pointer inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300">
+          <Link href={"/signin"}
+             className="cursor-pointer inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300">
               Adopt
-            </button>
+            
           </Link>
-
-          <button className="cursor-pointer inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300">
-            <Link href={`/pets/${_id}`}>view Details</Link>
-          </button>
+          <Link
+            href={`/pets/${_id}`}
+            className="cursor-pointer inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300"
+          >
+            View Details
+          </Link>
+          
         </div>
       </div>
     </div>

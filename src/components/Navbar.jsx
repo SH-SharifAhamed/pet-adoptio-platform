@@ -55,6 +55,16 @@ const Navbar = () => {
             </Link>
             <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-linear-to-r from-purple-500 to-green-500 transition-all duration-300 group-hover:w-full"></span>
           </li>
+
+          <li className="relative group">
+            <Link
+              href="/requests"
+              className="px-2 py-1 text-2xl font-bold transition-all duration-300 hover:text-green-600"
+            >
+              My Requests
+            </Link>
+            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-linear-to-r from-purple-500 to-green-500 transition-all duration-300 group-hover:w-full"></span>
+          </li>
         </ul>
 
         <div className="hidden md:flex gap-2.5 items-center text-green-500 font-black">

@@ -1,3 +1,6 @@
+// "use client";
+
+
 import { EditModal } from "@/components/EditModal";
 import { Button } from "@heroui/react";
 import Image from "next/image";
@@ -8,9 +11,7 @@ import { TbCoinTaka } from "react-icons/tb";
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
 
-  const res = await fetch(`process.env.NEXT_API_URL/${id}`, {
-    cache: "no-cache",
-  });
+  const res = await fetch(`process.env.NEXT_API_URL/${_id}`, {});
 
   const data = await res.json();
 
