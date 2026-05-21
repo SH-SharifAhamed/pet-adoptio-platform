@@ -99,14 +99,14 @@ export function EditModal({ data }) {
                       </TextField>
                     </div>
 
-                    {/* Breed */}
+                    
                     <TextField defaultValue={Breed} name="Breed" isRequired>
                       <Label>Breed</Label>
                       <Input placeholder="Breed" className="rounded-2xl" />
                       <FieldError />
                     </TextField>
 
-                    {/* Category - Updated Select Component */}
+                    
                     <div>
                       <Select
                         defaultValue={category}

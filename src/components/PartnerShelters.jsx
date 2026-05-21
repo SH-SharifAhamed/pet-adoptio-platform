@@ -85,15 +85,12 @@ const partners = [
 export default function PartnerOrganizationsSection() {
   return (
     <section className="relative w-full py-24 px-4 md:px-12 bg-slate-50 overflow-hidden">
-      {/* Dot grid background pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:32px_32px] opacity-30" />
+      <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] bg-size-[32px_32px] opacity-30" />
 
-      {/* Ambient gradient orbs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-300/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-300/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
+      <div className="absolute top-0 right-0 w-150 h-150 bg-blue-300/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
+      <div className="absolute bottom-0 left-0 w-150 h-150 bg-purple-300/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
 
       <div className="relative max-w-7xl mx-auto">
-        {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 mb-16">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm text-slate-600 text-sm font-semibold mb-6">
@@ -102,7 +99,7 @@ export default function PartnerOrganizationsSection() {
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.1]">
               Our Partner{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600">
                 Organizations
               </span>
             </h2>
@@ -113,7 +110,6 @@ export default function PartnerOrganizationsSection() {
             </p>
           </div>
 
-          {/* Header Stats */}
           <div className="flex items-center justify-evenly gap-8 lg:pb-2 bg-white px-8 py-5 rounded-2xl border border-slate-200/60 shadow-sm">
             <div className="text-center">
               <div className="text-3xl font-bold text-slate-900">50+</div>
@@ -138,7 +134,6 @@ export default function PartnerOrganizationsSection() {
           </div>
         </div>
 
-        {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {partners.map((partner, index) => (
             <div
@@ -149,16 +144,14 @@ export default function PartnerOrganizationsSection() {
                 animationFillMode: "both",
               }}
             >
-              {/* Top accent bar */}
               <div
-                className={`h-1.5 w-full bg-gradient-to-r ${partner.accent}`}
+                className={`h-1.5 w-full bg-linear-to-r ${partner.accent}`}
               />
 
               <div className="relative z-10 p-7">
-                {/* Top row: Icon + Link */}
                 <div className="flex items-start justify-between mb-5">
                   <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${partner.light} flex items-center justify-center border border-slate-100 group-hover:scale-105 transition-transform duration-300`}
+                    className={`w-14 h-14 rounded-2xl bg-linear-to-br ${partner.light} flex items-center justify-center border border-slate-100 group-hover:scale-105 transition-transform duration-300`}
                   >
                     <partner.icon
                       className="w-7 h-7 text-slate-700"
@@ -171,7 +164,6 @@ export default function PartnerOrganizationsSection() {
                   </div>
                 </div>
 
-                {/* Title & Badges */}
                 <h3 className="text-lg font-bold text-slate-900 mb-1.5 group-hover:text-blue-700 transition-colors duration-300">
                   {partner.name}
                 </h3>
@@ -187,12 +179,10 @@ export default function PartnerOrganizationsSection() {
                   </span>
                 </div>
 
-                {/* Description */}
                 <p className="text-sm text-slate-500 leading-relaxed mb-6">
                   {partner.description}
                 </p>
 
-                {/* Stats Footer */}
                 <div className="flex items-center gap-5 pt-5 border-t border-slate-100">
                   <div>
                     <div className="text-base font-bold text-slate-900">
@@ -214,16 +204,14 @@ export default function PartnerOrganizationsSection() {
                 </div>
               </div>
 
-              {/* Hover gradient wash */}
               <div
-                className={`absolute inset-0 bg-gradient-to-br ${partner.light} opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none`}
+                className={`absolute inset-0 bg-linear-to-br ${partner.light} opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none`}
               />
             </div>
           ))}
 
-          {/* CTA Card */}
-          <div className="group relative bg-slate-900 rounded-2xl border border-slate-800 shadow-lg hover:shadow-xl hover:shadow-slate-900/30 transition-all duration-500 hover:-translate-y-1 overflow-hidden flex flex-col justify-center items-center p-8 text-center md:min-h-[340px]">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="group relative bg-slate-900 rounded-2xl border border-slate-800 shadow-lg hover:shadow-xl hover:shadow-slate-900/30 transition-all duration-500 hover:-translate-y-1 overflow-hidden flex flex-col justify-center items-center p-8 text-center md:min-h-85">
+            <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             <div className="relative z-10 w-16 h-16 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
               <Heart className="w-8 h-8 text-blue-400" strokeWidth={1.5} />
@@ -232,7 +220,7 @@ export default function PartnerOrganizationsSection() {
             <h3 className="relative z-10 text-xl font-bold text-white mb-2">
               Join Our Network
             </h3>
-            <p className="relative z-10 text-sm text-slate-400 mb-8 max-w-[260px] leading-relaxed">
+            <p className="relative z-10 text-sm text-slate-400 mb-8 max-w-65 leading-relaxed">
               Are you a shelter or welfare organization? Partner with us to
               reach thousands of loving homes.
             </p>
@@ -243,7 +231,6 @@ export default function PartnerOrganizationsSection() {
           </div>
         </div>
 
-        {/* Bottom Trust Bar */}
         <div className="mt-16 flex flex-wrap items-center justify-center gap-8 md:gap-12 text-sm text-slate-400 font-medium">
           <span className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-500" />
@@ -260,7 +247,6 @@ export default function PartnerOrganizationsSection() {
         </div>
       </div>
 
-      {/* Animations */}
       <style jsx>{`
         @keyframes fade-in-up {
           from {
