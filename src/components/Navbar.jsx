@@ -5,10 +5,7 @@ import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import {
-  Avatar,
-  Button,
-} from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 // import { signOut } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Dropdwon from "@/components/Dropdwon";
@@ -71,21 +68,7 @@ const Navbar = () => {
             <>
               <ul className="flex items-center gap-3">
                 <li>
-                  <Avatar>
-                    <Avatar.Image
-                      referrerPolicy="no-referrer"
-                      alt={user?.name}
-                      src={user?.image}
-                    />
-                    <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
-                  </Avatar>
-                </li>
-
-                <li>
-                  <Link
-                    href="/deshboard"
-                    className="px-5 py-2 text-sm font-semibold text-green-400 border border-green-500/30 rounded-full hover:bg-green-500/10 transition-all duration-300"
-                  >
+                  <Link href="/deshboard">
                     <Dropdwon />
                   </Link>
                 </li>
@@ -146,19 +129,9 @@ const Navbar = () => {
                 <>
                   <ul className="flex items-center gap-3">
                     <li>
-                      <Avatar>
-                        <Avatar.Image
-                          referrerPolicy="no-referrer"
-                          alt={user?.name}
-                          src={user?.image}
-                        />
-                        <Avatar.Fallback>
-                          {user?.name?.charAt(0)}
-                        </Avatar.Fallback>
-                      </Avatar>
-                    </li>
-                    <li>
-                      <page />
+                      <Link href="/deshboard">
+                        <Dropdwon />
+                      </Link>
                     </li>
                     <li>
                       <Button onClick={handleLogOut}>LogOut</Button>
