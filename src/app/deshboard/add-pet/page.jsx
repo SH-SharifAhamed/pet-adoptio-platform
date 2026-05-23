@@ -27,13 +27,15 @@ const AddPet = () => {
     const pet = Object.fromEntries(formData.entries());
 
     try {
-      const res = await fetch(process.env.NEXT_PUBLIC_API_URL, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(pet),
         },
-        body: JSON.stringify(pet),
-      });
+      );
 
       const data = await res.json();
 

@@ -13,8 +13,6 @@ import Dropdwon from "@/components/Dropdwon";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/pets", label: "All Pets" },
-  { href: "/add-pet", label: "Add Pets" },
-  { href: "/requests", label: "My Requests" },
 ];
 
 const Navbar = () => {
@@ -31,7 +29,7 @@ const Navbar = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full z-50 bg-[#0f0f1a]/80 backdrop-blur-xl border-b border-white/10">
-      <nav className="flex justify-between items-center px-4 sm:px-6 py-3 max-w-7xl mx-auto">
+      <nav className="flex justify-between items-center px-4 sm:px-6 py-3 max-w-6xl mx-auto">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <Image

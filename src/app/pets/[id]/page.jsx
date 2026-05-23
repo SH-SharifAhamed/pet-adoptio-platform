@@ -1,4 +1,5 @@
 
+
 import { EditModal } from "@/components/EditModal";
 import { Button } from "@heroui/react";
 import Image from "next/image";
@@ -10,6 +11,7 @@ import {
 } from "react-icons/md";
 import { FaVenusMars, FaSyringe, FaBirthdayCake } from "react-icons/fa";
 import BookingPet from "@/components/BookingPet";
+import { DeleteModal } from "@/components/DeleteModal";
 
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -21,7 +23,6 @@ const DetailsPage = async ({ params }) => {
   if (!res.ok) {
     throw new Error("Failed to fetch pet details");
   }
-
 
   const data = await res.json();
 
@@ -64,22 +65,13 @@ const DetailsPage = async ({ params }) => {
             </h1>
           </div>
 
-          <div>
+          <div className="flex items-center gap-3">
             <EditModal data={data} />
-            <Button
-              variant="bordered"
-              color="danger"
-              size="md"
-              className="font-semibold border-red-500/30 hover:bg-red-500/10 text-red-400"
-            >
-              Delete
-            </Button>
+            <DeleteModal data={data} />
           </div>
         </div>
 
-        {/* Main Glass Card */}
         <div className="bg-zinc-800/40 backdrop-blur-2xl border border-zinc-700/30 rounded-[2rem] overflow-hidden shadow-2xl shadow-black/50">
-          {/* Hero Image Section */}
           <div className="relative w-full h-72 sm:h-96 lg:h-112 group">
             <Image
               alt={petName || "Pet"}
@@ -90,11 +82,9 @@ const DetailsPage = async ({ params }) => {
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
 
-            {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-linear-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
 
             <div className="absolute bottom-10 right-6 flex flex-wrap items-center gap-4 pt-6">
-              {/* Vaccination Status */}
               <div
                 className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-bold border shadow-sm ${
                   isVaccinated
@@ -107,7 +97,7 @@ const DetailsPage = async ({ params }) => {
                   {vaccinationStatus || "Unknown"}
                 </span>
               </div>
-              {/* Health Status */}
+
               <div
                 className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-bold border shadow-sm ${
                   isHealthy
@@ -122,7 +112,6 @@ const DetailsPage = async ({ params }) => {
               </div>
             </div>
 
-            {/* Bottom Title */}
             <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-lg">
                 {petName}
@@ -130,9 +119,7 @@ const DetailsPage = async ({ params }) => {
             </div>
           </div>
 
-          {/* Content Body */}
           <div className="p-6 sm:p-10 lg:p-12 space-y-10">
-            {/* Description */}
             {description && (
               <div className="max-w-3xl">
                 <p className="text-zinc-300 text-lg sm:text-xl leading-relaxed font-light">
@@ -143,7 +130,6 @@ const DetailsPage = async ({ params }) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
               <div>
-                {/* Details Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
                   {details.map((item, idx) => (
                     <div
@@ -167,7 +153,7 @@ const DetailsPage = async ({ params }) => {
 
                 {/* Status Badges Section */}
               </div>
-              <BookingPet data={data} />
+              {data && <BookingPet data={data} />}
             </div>
           </div>
         </div>

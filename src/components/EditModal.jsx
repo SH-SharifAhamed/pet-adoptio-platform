@@ -40,10 +40,10 @@ export function EditModal({ data }) {
     const formData = new FormData(e.currentTarget);
     const pet = Object.fromEntries(formData.entries());
 
-    console.log(pet);
+    // console.log(pet);
 
     try {
-      const res = await fetch(`process.env.NEXT_PUBLIC_API_URL/${_id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets/${_id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
@@ -52,7 +52,7 @@ export function EditModal({ data }) {
       });
 
       const data = await res.json();
-      console.log(data);
+      
 
       if (res.ok) {
         toast.success("Pet Updated Successfully!");

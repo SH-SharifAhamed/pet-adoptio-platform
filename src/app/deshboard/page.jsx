@@ -1,14 +1,7 @@
-
-
-const Deshboard = () => {
+export default function DashboardHomePage() {
   return (
-    <div className="flex items-center gap-3 my-25">
-      <h1>Deshboard</h1>
-
-
-      
+    <div>
+      <h1 className="text-3xl font-bold">Dashboard Overview</h1>
     </div>
   );
-};
-
-export default Deshboard;
+}
