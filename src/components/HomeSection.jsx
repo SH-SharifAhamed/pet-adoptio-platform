@@ -5,12 +5,9 @@ import { MdPets } from "react-icons/md";
 import { FaChevronRight } from "react-icons/fa";
 
 const HomeSection = async () => {
-  const res = await fetch(
-    "https://pet-adoption-server-omega-liard.vercel.app/pets",
-    {
-      cache: "no-cache",
-    },
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets`, {
+    cache: "no-cache",
+  });
   const data = await res.json();
 
   // Health status color mapping
@@ -20,6 +17,8 @@ const HomeSection = async () => {
     Recovering: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
     Treatment: "bg-blue-500/10 text-blue-400 border-blue-500/20",
   };
+
+  
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">

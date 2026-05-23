@@ -4,7 +4,6 @@ import { authClient } from "@/lib/auth-client";
 import {
   Button,
   Card,
-  Description,
   FieldError,
   Form,
   Input,
@@ -49,6 +48,7 @@ export default function SignInPage() {
     }, 800);
   };
 
+  // login with google
   const handleGoogleSignIn = async () => {
     const loadingToast = toast.loading("Redirecting to Google...");
 
@@ -63,6 +63,7 @@ export default function SignInPage() {
       toast.error("Google login failed!");
     }
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20 bg-[#0f0f1a] relative overflow-hidden">

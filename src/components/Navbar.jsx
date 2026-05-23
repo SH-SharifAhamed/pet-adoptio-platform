@@ -4,6 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import {
+  Avatar,
+  Button,
+} from "@heroui/react";
+// import { signOut } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import Dropdwon from "@/components/Dropdwon";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -14,6 +22,15 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+  const handleLogOut = async () => {
+    await authClient.signOut();
+    router.push("/");
+  };
 
   return (
     <div className="fixed top-0 left-0 w-full z-50 bg-[#0f0f1a]/80 backdrop-blur-xl border-b border-white/10">
@@ -50,18 +67,49 @@ const Navbar = () => {
 
         {/* Desktop Auth Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/signin"
-            className="px-5 py-2 text-sm font-semibold text-green-400 border border-green-500/30 rounded-full hover:bg-green-500/10 transition-all duration-300"
-          >
-            Sign In
-          </Link>
-          <Link
-            href="/signup"
-            className="px-5 py-2 text-sm font-semibold text-white bg-linear-to-r from-purple-600 to-green-600 rounded-full hover:opacity-90 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300"
-          >
-            Sign Up
-          </Link>
+          {user ? (
+            <>
+              <ul className="flex items-center gap-3">
+                <li>
+                  <Avatar>
+                    <Avatar.Image
+                      referrerPolicy="no-referrer"
+                      alt={user?.name}
+                      src={user?.image}
+                    />
+                    <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
+                  </Avatar>
+                </li>
+
+                <li>
+                  <Link
+                    href="/deshboard"
+                    className="px-5 py-2 text-sm font-semibold text-green-400 border border-green-500/30 rounded-full hover:bg-green-500/10 transition-all duration-300"
+                  >
+                    <Dropdwon />
+                  </Link>
+                </li>
+                <li>
+                  <Button onClick={handleLogOut}>LogOut</Button>
+                </li>
+              </ul>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/signin"
+                className="px-5 py-2 text-sm font-semibold text-green-400 border border-green-500/30 rounded-full hover:bg-green-500/10 transition-all duration-300"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/signup"
+                className="px-5 py-2 text-sm font-semibold text-white bg-linear-to-r from-purple-600 to-green-600 rounded-full hover:opacity-90 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -94,20 +142,45 @@ const Navbar = () => {
             ))}
 
             <div className="pt-4 mt-2 border-t border-white/10 flex flex-col gap-2">
-              <Link
-                href="/signin"
-                onClick={() => setOpen(false)}
-                className="block w-full text-center px-4 py-2.5 text-sm font-semibold text-green-400 border border-green-500/30 rounded-full hover:bg-green-500/10 transition-all duration-300"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/signup"
-                onClick={() => setOpen(false)}
-                className="block w-full text-center px-4 py-2.5 text-sm font-semibold text-white bg-linear-to-r from-purple-600 to-green-600 rounded-full hover:opacity-90 transition-all duration-300"
-              >
-                Sign Up
-              </Link>
+              {user ? (
+                <>
+                  <ul className="flex items-center gap-3">
+                    <li>
+                      <Avatar>
+                        <Avatar.Image
+                          referrerPolicy="no-referrer"
+                          alt={user?.name}
+                          src={user?.image}
+                        />
+                        <Avatar.Fallback>
+                          {user?.name?.charAt(0)}
+                        </Avatar.Fallback>
+                      </Avatar>
+                    </li>
+                    <li>
+                      <page />
+                    </li>
+                    <li>
+                      <Button onClick={handleLogOut}>LogOut</Button>
+                    </li>
+                  </ul>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/signin"
+                    className="px-5 py-2 text-sm font-semibold text-green-400 border border-green-500/30 rounded-full hover:bg-green-500/10 transition-all duration-300"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="px-5 py-2 text-sm font-semibold text-white bg-linear-to-r from-purple-600 to-green-600 rounded-full hover:opacity-90 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -1,17 +1,27 @@
-// "use client";
-
 
 import { EditModal } from "@/components/EditModal";
 import { Button } from "@heroui/react";
 import Image from "next/image";
-import { BiEdit } from "react-icons/bi";
-import { MdLocationPin } from "react-icons/md";
-import { TbCoinTaka } from "react-icons/tb";
+import {
+  MdLocationPin,
+  MdEmail,
+  MdPets,
+  MdHealthAndSafety,
+} from "react-icons/md";
+import { FaVenusMars, FaSyringe, FaBirthdayCake } from "react-icons/fa";
+import BookingPet from "@/components/BookingPet";
 
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
 
-  const res = await fetch(`process.env.NEXT_API_URL/${_id}`, {});
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets/${id}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch pet details");
+  }
+
 
   const data = await res.json();
 
@@ -29,37 +39,137 @@ const DetailsPage = async ({ params }) => {
     ownerEmail,
   } = data;
 
+  const details = [
+    { label: "Breed", value: Breed, icon: <MdPets size={20} /> },
+    { label: "Gender", value: gender, icon: <FaVenusMars size={18} /> },
+    { label: "Age", value: Age, icon: <FaBirthdayCake size={18} /> },
+    { label: "Location", value: location, icon: <MdLocationPin size={20} /> },
+    { label: "Owner Email", value: ownerEmail, icon: <MdEmail size={20} /> },
+  ];
+
+  const isVaccinated = vaccinationStatus?.toLowerCase() === "vaccinated";
+  const isHealthy = healthStatus?.toLowerCase() === "healthy";
+
   return (
-    <div className=" justify-center items-center p-10 my-25">
-      <div className="flex gap-2 justify-end mb-5">
-        <EditModal data={data} />
-        <Button variant="outline">Delete</Button>
-      </div>
+    <div className="min-h-screen bg-linear-to-br from-zinc-950 via-zinc-900 to-zinc-950 py-12 px-4 sm:px-6 mt-10 lg:px-8">
+      <div className="max-w-5xl mx-auto">
+        {/* Actions Header */}
+        <div className="flex items-center justify-between gap-3 mb-8">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-linear-to-br from-purple-600/20 to-green-600/20 border border-purple-500/20">
+              <MdPets className="text-2xl text-purple-400" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              Pets Details
+            </h1>
+          </div>
 
-      <Image
-        alt={petName}
-        src={imageUrl}
-        width={600}
-        height={200}
-        className="h-100 lg:h-142 w-full rounded-xl object-cover"
-      />
+          <div>
+            <EditModal data={data} />
+            <Button
+              variant="bordered"
+              color="danger"
+              size="md"
+              className="font-semibold border-red-500/30 hover:bg-red-500/10 text-red-400"
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
 
-      <div className="p-2 text-white space-y-2">
-        <p className="text-white text-2xl">Name: {petName}</p>
-        <p className="text-white">{description}</p>
-        <div className="grid grid-cols-2">
-          <p className="text-xl">Breed: {Breed}</p>
-          <p className="text-xl">Gender: {gender}</p>
-          <p className="text-xl">Vaccination Status: {vaccinationStatus}</p>
-          <p className="text-xl gap-2 flex items-center">
-            <TbCoinTaka /> Price: {Fee}
-          </p>
-          <p className="text-xl">Age: {Age}</p>
-          <p className="text-xl">Health Status: {healthStatus}</p>
-          <p className="text-xl gap-2 flex items-center">
-            <MdLocationPin /> Location: {location}
-          </p>
-          <p className="text-xl">Owner Email: {ownerEmail}</p>
+        {/* Main Glass Card */}
+        <div className="bg-zinc-800/40 backdrop-blur-2xl border border-zinc-700/30 rounded-[2rem] overflow-hidden shadow-2xl shadow-black/50">
+          {/* Hero Image Section */}
+          <div className="relative w-full h-72 sm:h-96 lg:h-112 group">
+            <Image
+              alt={petName || "Pet"}
+              src={imageUrl || "/placeholder-pet.jpg"}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-linear-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+
+            <div className="absolute bottom-10 right-6 flex flex-wrap items-center gap-4 pt-6">
+              {/* Vaccination Status */}
+              <div
+                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-bold border shadow-sm ${
+                  isVaccinated
+                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                    : "bg-amber-500/10 border-amber-500/20 text-amber-400"
+                }`}
+              >
+                <FaSyringe size={16} />
+                <span className="uppercase tracking-wide">
+                  {vaccinationStatus || "Unknown"}
+                </span>
+              </div>
+              {/* Health Status */}
+              <div
+                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-bold border shadow-sm ${
+                  isHealthy
+                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                    : "bg-rose-500/10 border-rose-500/20 text-rose-400"
+                }`}
+              >
+                <MdHealthAndSafety size={18} />
+                <span className="uppercase tracking-wide">
+                  {healthStatus || "Unknown"}
+                </span>
+              </div>
+            </div>
+
+            {/* Bottom Title */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-lg">
+                {petName}
+              </h1>
+            </div>
+          </div>
+
+          {/* Content Body */}
+          <div className="p-6 sm:p-10 lg:p-12 space-y-10">
+            {/* Description */}
+            {description && (
+              <div className="max-w-3xl">
+                <p className="text-zinc-300 text-lg sm:text-xl leading-relaxed font-light">
+                  {description}
+                </p>
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
+              <div>
+                {/* Details Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
+                  {details.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="group flex items-center gap-4 p-5 rounded-2xl bg-zinc-700/20 border border-zinc-600/20 hover:bg-zinc-700/40 hover:border-zinc-500/40 hover:shadow-lg hover:shadow-black/20 transition-all duration-300"
+                    >
+                      <div className="shrink-0 w-12 h-12 rounded-xl bg-zinc-600/30 border border-zinc-500/20 flex items-center justify-center text-zinc-400 group-hover:bg-zinc-500/30 group-hover:text-white transition-colors duration-300">
+                        {item.icon}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">
+                          {item.label}
+                        </p>
+                        <p className="text-zinc-100 font-semibold text-lg truncate">
+                          {item.value || "N/A"}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Status Badges Section */}
+              </div>
+              <BookingPet data={data} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
