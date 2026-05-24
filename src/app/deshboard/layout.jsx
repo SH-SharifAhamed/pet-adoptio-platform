@@ -37,8 +37,8 @@ export default function DashboardLayout({ children }) {
         <aside className="sticky top-0 h-screen w-72 border-r border-white/10 bg-white/5 backdrop-blur-xl">
           {/* Logo */}
           <div className="border-b border-white/10 p-6">
-            <Link href="/" className="text-2xl font-bold">
-              Pet<span className="text-green-400">Nest</span>
+            <Link href="/pets" className="text-2xl font-bold">
+              Adoption Dashboard
             </Link>
           </div>
 
@@ -63,7 +63,7 @@ export default function DashboardLayout({ children }) {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 bg-gradient-to-b from-black via-zinc-950 to-black p-6">
+        <main className="flex-1 bg-linear-to-b from-black via-zinc-950 to-black p-6">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl">
             {children}
           </div>

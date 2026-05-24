@@ -23,7 +23,7 @@ const MyListings = async () => {
     <div className="flex justify-center items-center h-screen">
       <h1>My Listings</h1>
       <div>
-        {data.map((adopters) => (
+        {data?.map((adopters) => (
           <div key={adopters._id}>
             <Image
               src={adopters.imageUrl}

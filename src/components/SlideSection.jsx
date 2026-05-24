@@ -50,7 +50,7 @@ const SlideSection =  ({data}) => {
 
               <Link
                 href={`/pets/${pets._id}`}
-                className="inline-flex items-center gap-2 mt-4 px-4 sm:px-5 py-2 rounded-md bg-gradient-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300"
+                className="inline-flex items-center gap-2 mt-4 px-4 sm:px-5 py-2 rounded-md bg-linear-to-r from-blue-500 to-green-600 text-white text-sm sm:text-base font-medium hover:from-green-600 hover:to-blue-500 transition-all duration-300"
               >
                 Adopt Now
               </Link>

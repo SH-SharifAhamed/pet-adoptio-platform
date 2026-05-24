@@ -24,7 +24,7 @@ const HomeSection = async () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-8">
+      <div className="flex items-center gap-3 mb-4">
         <div className="p-2.5 rounded-xl bg-linear-to-br from-purple-600/20 to-green-600/20 border border-purple-500/20">
           <MdPets className="text-2xl text-purple-400" />
         </div>
@@ -32,6 +32,8 @@ const HomeSection = async () => {
           Recent Pets
         </h1>
       </div>
+
+      
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

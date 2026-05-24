@@ -15,9 +15,21 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaPaw } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
 
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
+
+
+
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  console.log(session);
+  console.log(user);
+
+
+
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -272,8 +284,9 @@ const AddPet = () => {
                   Owner Email
                 </Label>
                 <Input
+                  Value={session?.user?.email ?? "Loading..."}
                   isReadOnly
-                  placeholder="owner@example.com"
+                  placeholder="Owner Email"
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 placeholder:text-gray-600 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300 outline-none cursor-not-allowed"
                 />
                 <FieldError className="text-red-400 text-xs mt-1" />

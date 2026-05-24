@@ -24,14 +24,14 @@ const NotFoundPage = () => {
 
                {/* Main Card */}
                <div className="relative mt-15 z-10 max-w-2xl w-full">
-                    <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 md:p-12 shadow-2xl shadow-black/50">
+                    <div className="backdrop-blur-xl bg-white/3 border border-white/8 rounded-3xl p-8 md:p-12 shadow-2xl shadow-black/50">
 
                          {/* Icon with Glow Ring */}
                          <div className="flex justify-center mb-8">
                               <div className="relative">
                                    {/* Animated Ring */}
-                                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-400 to-emerald-600 blur-md opacity-50 animate-ping" />
-                                   <div className="relative p-6 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-600/10 border border-green-500/30 shadow-[0_0_40px_rgba(34,197,94,0.3)]">
+                                   <div className="absolute inset-0 rounded-full bg-linear-to-r from-green-400 to-emerald-600 blur-md opacity-50 animate-ping" />
+                                   <div className="relative p-6 rounded-full bg-linear-to-br from-green-500/20 to-emerald-600/10 border border-green-500/30 shadow-[0_0_40px_rgba(34,197,94,0.3)]">
                                         <MdPets className="text-6xl md:text-7xl text-green-400 drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]" />
                                    </div>
                               </div>
@@ -40,7 +40,7 @@ const NotFoundPage = () => {
                          {/* 404 with Stroke Effect */}
                          <div className="relative">
                               <h1 className="text-8xl md:text-9xl font-black text-center leading-none tracking-tighter">
-                                   <span className="bg-gradient-to-r from-green-300 via-emerald-400 to-green-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
+                                   <span className="bg-linear-to-r from-green-300 via-emerald-400 to-green-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(34,197,94,0.4)]">
                                         404
                                    </span>
                               </h1>
@@ -53,7 +53,7 @@ const NotFoundPage = () => {
                          {/* Title */}
                          <h2 className="mt-6 text-3xl md:text-4xl font-bold text-center">
                               Oops!{" "}
-                              <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                              <span className="bg-linear-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
                                    Pet Not Found
                               </span>
                          </h2>
@@ -70,7 +70,7 @@ const NotFoundPage = () => {
                               {/* Primary Button */}
                               <Link
                                    href="/"
-                                   className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 font-semibold shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+                                   className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-linear-to-r from-green-500 to-emerald-600 font-semibold shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
                               >
                                    <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                    <FaArrowLeft className="relative z-10 group-hover:-translate-x-1 transition-transform duration-300" />
@@ -90,11 +90,11 @@ const NotFoundPage = () => {
 
                          {/* Bottom Divider + Text */}
                          <div className="mt-10 flex items-center gap-4">
-                              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                              <div className="h-px flex-1 bg-linear-to-r from-transparent via-white/10 to-transparent" />
                               <p className="text-sm text-gray-500 whitespace-nowrap">
                                    Need help? Try searching for another adorable friend 🐾
                               </p>
-                              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                              <div className="h-px flex-1 bg-linear-to-r from-transparent via-white/10 to-transparent" />
                          </div>
 
                     </div>

@@ -1,5 +1,3 @@
-
-
 import { EditModal } from "@/components/EditModal";
 import { Button } from "@heroui/react";
 import Image from "next/image";
@@ -33,7 +31,6 @@ const DetailsPage = async ({ params }) => {
     gender,
     vaccinationStatus,
     imageUrl,
-    Fee,
     Age,
     healthStatus,
     location,
@@ -150,8 +147,6 @@ const DetailsPage = async ({ params }) => {
                     </div>
                   ))}
                 </div>
-
-                {/* Status Badges Section */}
               </div>
               {data && <BookingPet data={data} />}
             </div>
