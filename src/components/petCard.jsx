@@ -28,10 +28,10 @@ const PetCard = ({ pets }) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        {/* Gradient Overlay */}
+
         <div className="absolute inset-0 bg-linear-to-t from-[#1a1a2e] via-transparent to-transparent opacity-60" />
 
-        {/* Health Status Badge */}
+        
         <div className="absolute top-3 right-3">
           <span
             className={`px-3 py-1 rounded-full text-xs font-semibold border backdrop-blur-md ${healthClass}`}
@@ -48,9 +48,9 @@ const PetCard = ({ pets }) => {
         </div>
       </div>
 
-      {/* Content */}
+
       <div className="p-4 space-y-3">
-        {/* Info Grid */}
+
         <div className="grid grid-cols-2 gap-2">
           <div className="bg-white/5 rounded-lg p-2.5 border border-white/5">
             <p className="text-gray-400 text-xs mb-0.5">Gender</p>
