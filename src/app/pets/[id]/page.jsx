@@ -10,12 +10,20 @@ import {
 import { FaVenusMars, FaSyringe, FaBirthdayCake } from "react-icons/fa";
 import BookingPet from "@/components/BookingPet";
 import { DeleteModal } from "@/components/DeleteModal";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const DetailsPage = async ({ params }) => {
   const { id } = await params;
+  const {token} = await auth.api.getToken({
+      headers: await headers(),
+  })
+  
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets/${id}`, {
-    cache: "no-store",
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
   });
 
   if (!res.ok) {
@@ -23,7 +31,8 @@ const DetailsPage = async ({ params }) => {
   }
 
   const data = await res.json();
-
+ 
+ 
   const {
     petName,
     description,
@@ -35,7 +44,7 @@ const DetailsPage = async ({ params }) => {
     healthStatus,
     location,
     ownerEmail,
-  } = data;
+  } = data || {};
 
   const details = [
     { label: "Breed", value: Breed, icon: <MdPets size={20} /> },

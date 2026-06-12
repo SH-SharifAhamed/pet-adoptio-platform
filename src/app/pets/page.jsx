@@ -1,13 +1,14 @@
 import PetCard from "@/components/petCard";
 import { MdPets } from "react-icons/md";
 import SearchFilder from "@/components/SearchFilder";
+import Loading from "./loading";
 
 const PetPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets`);
-
   const data = await res.json();
-  // console.log(data);
 
+  const loading = !data;
+  
   return (
     <div className="max-w-6xl mx-auto my-25">
       <div className="flex items-center gap-3 mb-8">
@@ -18,15 +19,23 @@ const PetPage = async () => {
           All Pets
         </h1>
       </div>
+
+      
       <div className="mb-4">
         <SearchFilder />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-        {data.map((pets) => (
-          <PetCard key={pets._id} pets={pets} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="text-center">
+          <Loading />
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+          {data.map((pets) => (
+            <PetCard key={pets._id} pets={pets} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

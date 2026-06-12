@@ -19,30 +19,31 @@ import { toast } from "react-toastify";
 const BookingPet = ({ data }) => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-
-  // date
   const [date, setDate] = useState(new Date());
 
-  const { Fee, _id, petName, imageUrl } = data;
+  const { Fee, _id, petName, imageUrl, petId } = data;
 
   const handleAdoption = async () => {
     const adoptData = {
-      userId: user._id,
+      userId: user.id,
       userImage: user.image,
       userName: user.name,
-      userId: _id,
       date: new Date(date),
       petName,
       imageUrl,
       Fee,
       status: "Pending",
+      petId: _id,
     };
-    console.log(adoptData);
 
+    const {data:tokenData} = await authClient.token();
+
+    
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/adopters`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`
       },
       body: JSON.stringify(adoptData),
     });

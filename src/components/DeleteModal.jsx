@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import { redirect, useRouter } from "next/navigation";
 
@@ -12,12 +13,17 @@ export function DeleteModal({ data }) {
      
   const handleDelete = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets/${_id}`, {
-        method: "DELETE",
-        headers: {
-          "content-type": "application/json",
+      const {data:tokenData} = await authClient.token();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/pets/${_id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
         },
-      });
+      );
 
       const data = await res.json();
       router.push("/pets");

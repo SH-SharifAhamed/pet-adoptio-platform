@@ -1,14 +1,41 @@
-
+"use client";
+import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
 import { MdPets } from "react-icons/md";
 import { FaChevronRight } from "react-icons/fa";
+import { Button } from "@heroui/react";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+const HomeSection = () => {
+   const [pets, setPets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-const HomeSection = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets`, {
-    cache: "no-cache",
-  });
-  const data = await res.json();
+  const { data: session, isPending } = authClient.useSession();
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets`);
+
+        const data = await res.json();
+
+        setPets(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPets();
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   // Health status color mapping
   const healthColors = {
@@ -18,7 +45,66 @@ const HomeSection = async () => {
     Treatment: "bg-blue-500/10 text-blue-400 border-blue-500/20",
   };
 
-  // const handleAdopt = newFunction();
+
+
+
+
+
+
+
+  
+  
+  const user = session?.user;
+  
+  
+  if (isPending) {
+    return <h1>Loading...</h1>;
+  }
+    // const [date, setDate] = useState(new Date());
+  
+    // const { Fee, _id, petName, imageUrl, petId } = data;
+  
+  const handleAdoption = async (pet) => {
+    
+    if (pet.status === "Adopted") {
+      toast.error("Pet is already adopted!");
+      return;
+    }
+      
+    if (!user) {
+      router.push("/signin");
+      return;
+    }
+      const adoptData = {
+        userId: user.id,
+        userImage: user.image,
+        userName: user.name,
+        date: new Date(),
+        petName: pet.petName,
+        imageUrl: pet.imageUrl,
+        Fee: pet.Fee,
+        status: "Pending",
+        petId: pet._id,
+      };
+  
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/adopters`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(adoptData),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        toast.success("Adoption Request Sent Successfully!");
+        // e.target.reset();
+      } else {
+        toast.error(data.message || "Failed to add pet!");
+      }
+    };
+  
   
 
   return (
@@ -33,13 +119,10 @@ const HomeSection = async () => {
         </h1>
       </div>
 
-      
-
-      {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.slice(0, 6).map((pets) => {
+        {pets.slice(0, 6).map((pet) => {
           const { _id, petName, gender, imageUrl, Fee, Age, healthStatus } =
-            pets;
+            pet;
           const healthClass =
             healthColors[healthStatus] || healthColors.Healthy;
 
@@ -98,13 +181,13 @@ const HomeSection = async () => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-2 pt-1">
-                  <Link
-                    // onClick={adopt}
-                    href="/signin"
+                  <Button
+                    onClick={() => handleAdoption(pet)}
                     className="flex-1 text-center py-2.5 rounded-xl bg-linear-to-r from-purple-600 to-green-600 text-white text-sm font-semibold hover:opacity-90 hover:shadow-lg hover:shadow-green-500/25 active:scale-95 transition-all duration-300"
                   >
                     Adopt Now
-                  </Link>
+                  </Button>
+
                   <Link
                     href={`/pets/${_id}`}
                     className="flex-1 text-center py-2.5 rounded-xl border border-white/10 text-gray-300 text-sm font-semibold hover:bg-white/5 hover:text-white hover:border-purple-500/30 active:scale-95 transition-all duration-300"
@@ -131,11 +214,11 @@ const HomeSection = async () => {
     </div>
   );
 
-  function newFunction() {
-    return () => {
-      window.location.href = "/adopt";
-    };
-  }
+  // function newFunction() {
+  //   return () => {
+  //     window.location.href = "/adopt";
+  //   };
+  // }
 };
 
 export default HomeSection;

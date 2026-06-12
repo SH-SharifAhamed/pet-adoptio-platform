@@ -19,18 +19,9 @@ import { authClient } from "@/lib/auth-client";
 
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
-
-
-
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(session);
-  console.log(user);
-
-
-
-
-
+  
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -39,11 +30,14 @@ const AddPet = () => {
     const pet = Object.fromEntries(formData.entries());
 
     try {
+
+      const {data:tokenData} = await authClient.token();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets`,
         {
           method: "POST",
           headers: {
             "content-type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
           },
           body: JSON.stringify(pet),
         },
@@ -285,7 +279,7 @@ const AddPet = () => {
                 </Label>
                 <Input
                   Value={session?.user?.email ?? "Loading..."}
-                  isReadOnly
+                  isreadOnly
                   placeholder="Owner Email"
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 placeholder:text-gray-600 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300 outline-none cursor-not-allowed"
                 />

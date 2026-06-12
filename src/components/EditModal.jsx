@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 // import { Envelope } from "@gravity-ui/icons";
 import {
   Button,
@@ -43,10 +44,12 @@ export function EditModal({ data }) {
     // console.log(pet);
 
     try {
+      const { data: tokenData } = await authClient.token();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets/${_id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
         },
         body: JSON.stringify(pet),
       });
@@ -289,7 +292,7 @@ export function EditModal({ data }) {
                       <Label>Owner Email</Label>
                       <Input
                         //    value={user?.email}
-                        isReadOnly
+                        isreadOnly
                         className="rounded-2xl bg-gray-100"
                       />
                       <FieldError />

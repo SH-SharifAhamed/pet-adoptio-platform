@@ -14,11 +14,15 @@ import {
 
 import { SiPandas } from "react-icons/si";
 import { GiHorseshoe } from "react-icons/gi";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default function PetSearch( {searchParams}) {
+export default function PetSearch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams() || "";
 
   const categories = [
     {
@@ -70,22 +74,28 @@ export default function PetSearch( {searchParams}) {
     "Persian Cat",
     "Parrot",
     "Husky",
-     ];
-     
+  ];
 
-console.log(searchParams);
+  const handleSearch = async () => {
+    console.log("clicked");
+    
+    console.log(searchQuery);
+    
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/searchpets?search=${searchQuery}`,);
+    console.log(res);
+    
+    const data = await res.json();
+    console.log(data);
 
+    const params = new URLSearchParams(searchParams.toString());
+    if (searchQuery) {
+      params.set("search", searchQuery);
+    } else {
+      params.delete("search");
+    }
 
-
-
-
-
-
-
-
-
-
-
+    router.push(`/searchpets?${params.toString()}`);
+  };
 
   return (
     <div className="bg-linear-to-br from-slate-800/30 via-gray-500/30 to-zinc-800/30 rounded-3xl p-5 flex items-center justify-center">
@@ -127,6 +137,7 @@ console.log(searchParams);
                   placeholder="Search pets, breeds, categories..."
                   className="w-full h-14 pl-12 pr-5 rounded-2xl border border-gray-200/80 bg-white/80 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 focus:bg-white transition-all duration-300 text-base font-medium shadow-sm"
                 />
+                <p>Search: {searchQuery}</p>
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
@@ -171,7 +182,10 @@ console.log(searchParams);
                 </div>
               </div>
 
-              <button className="h-14 px-8 rounded-2xl bg-linear-to-r from-emerald-500 to-teal-600 text-white font-semibold shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-2 min-w-35">
+              <button
+                onClick={handleSearch}
+                className="h-14 px-8 rounded-2xl bg-linear-to-r from-emerald-500 to-teal-600 text-white font-semibold shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-2 min-w-35"
+              >
                 <Search className="w-5 h-5" />
                 <span>Search</span>
               </button>
