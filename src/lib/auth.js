@@ -12,7 +12,7 @@ export const auth = betterAuth({
     client,
   }),
   trustedOrigins: [
-    process.env.CLIENT_URL
+    process.env.CLIENT_URL, "https://pet-adoption-platform-wheat.vercel.app"
   ],
   emailAndPassword: {
     enabled: true,
