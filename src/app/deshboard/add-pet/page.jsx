@@ -16,37 +16,39 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaPaw } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  
+  const router = useRouter();
+
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     const formData = new FormData(e.currentTarget);
     const pet = Object.fromEntries(formData.entries());
+    pet.userId = user?.id;
+    pet.ownerEmail = user?.email;
 
     try {
-
-      const {data:tokenData} = await authClient.token();
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-            authorization: `Bearer ${tokenData?.token}`,
-          },
-          body: JSON.stringify(pet),
+      const { data: tokenData } = await authClient.token();
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
         },
-      );
+        body: JSON.stringify(pet),
+      });
 
       const data = await res.json();
 
       if (res.ok) {
         toast.success("Pet Added Successfully!");
+        router.push("/deshboard/my-listings");
         e.target.reset();
       } else {
         toast.error(data.message || "Failed to add pet!");
@@ -278,8 +280,8 @@ const AddPet = () => {
                   Owner Email
                 </Label>
                 <Input
-                  Value={session?.user?.email ?? "Loading..."}
-                  isreadOnly
+                  value={session?.user?.email ?? "Loading..."}
+                  readOnly
                   placeholder="Owner Email"
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 placeholder:text-gray-600 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300 outline-none cursor-not-allowed"
                 />

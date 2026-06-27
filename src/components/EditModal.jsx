@@ -14,6 +14,7 @@ import {
   TextField,
   Select,
 } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import { BiEdit, BiEditAlt } from "react-icons/bi";
 
 import { toast } from "react-toastify";
@@ -35,6 +36,7 @@ export function EditModal({ data }) {
     location,
     ownerEmail,
   } = data;
+  const router = useRouter();
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,6 +61,7 @@ export function EditModal({ data }) {
 
       if (res.ok) {
         toast.success("Pet Updated Successfully!");
+        router.refresh();
       } else {
         toast.error("Failed to Update pet!");
       }

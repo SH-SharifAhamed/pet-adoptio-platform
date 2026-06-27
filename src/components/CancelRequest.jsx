@@ -7,15 +7,15 @@ import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export function DeleteModal({ data }) {
-  const { _id, petName } = data;
-  const router = useRouter();
+export function CancelRequest({ id }) {
+     console.log(id);
      
+  const router = useRouter();
+
   const handleDelete = async () => {
     try {
-      const {data:tokenData} = await authClient.token();
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/pets/${_id}`,
+      const { data: tokenData } = await authClient.token();
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/adopters/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -40,20 +40,22 @@ export function DeleteModal({ data }) {
 
   return (
     <AlertDialog>
-      <Button variant="danger">Delete {petName}</Button>
+      <AlertDialog.Trigger asChild>
+        <button className="rounded-xl border border-red-500 px-4 py-2 text-sm font-semibold text-red-400 transition hover:bg-red-500 hover:text-white">
+          Cancel Request
+        </button>
+      </AlertDialog.Trigger>
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
           <AlertDialog.Dialog className="sm:max-w-100">
             <AlertDialog.CloseTrigger />
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
-              <AlertDialog.Heading>
-                Delete {petName} permanently?
-              </AlertDialog.Heading>
+              <AlertDialog.Heading>Delete permanently?</AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
               <p>
-                This will permanently delete <strong>{petName}</strong> {""}
+                This will permanently delete <strong>this Request</strong> {""}
                 and all of its data. This action cannot be undone.
               </p>
             </AlertDialog.Body>
@@ -62,7 +64,7 @@ export function DeleteModal({ data }) {
                 Cancel
               </Button>
               <Button onClick={handleDelete} slot="close" variant="danger">
-                Delete {petName}
+                Cancel Request
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>

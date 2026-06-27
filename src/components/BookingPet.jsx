@@ -16,14 +16,20 @@ import { MdPets } from "react-icons/md";
 import { TbCoinTaka } from "react-icons/tb";
 import { toast } from "react-toastify";
 
-const BookingPet = ({ data }) => {
+const BookingPet = ({ data, ownerUserId, isOwner = false }) => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const [date, setDate] = useState(new Date());
+  const [loading, setLoading] = useState(false);
 
-  const { Fee, _id, petName, imageUrl, petId } = data;
+  const { Fee, _id, petName, imageUrl, petId, status } = data;
+  const isAdopted = status === "Adopted";
+  const canAdopt = !isOwner && !isAdopted;
 
   const handleAdoption = async () => {
+    if (!canAdopt) return;
+
+    setLoading(true);
     const adoptData = {
       userId: user.id,
       userImage: user.image,
@@ -36,25 +42,32 @@ const BookingPet = ({ data }) => {
       petId: _id,
     };
 
-    const {data:tokenData} = await authClient.token();
+    const { data: tokenData } = await authClient.token();
 
-    
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/adopters`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${tokenData?.token}`
+        authorization: `Bearer ${tokenData?.token}`,
       },
       body: JSON.stringify(adoptData),
     });
 
-    const data = await res.json();
+    const responseData = await res.json();
+    setLoading(false);
 
     if (res.ok) {
       toast.success("Adoption Request Sent Successfully!");
-      e.target.reset();
     } else {
-      toast.error(data.message || "Failed to add pet!");
+      if (res.status === 403) {
+        toast.error("Pet owners cannot request adoption for their own pets!");
+      } else if (res.status === 400) {
+        toast.error(responseData.message || "Cannot request this pet!");
+      } else {
+        toast.error(
+          responseData.message || "Failed to submit adoption request!",
+        );
+      }
     }
   };
 
@@ -100,7 +113,23 @@ const BookingPet = ({ data }) => {
         </TextField>
       </div>
 
-      <Button onClick={handleAdoption}>Adopt Now</Button>
+      <Button
+        onClick={handleAdoption}
+        disabled={!canAdopt || loading}
+        className={`${
+          !canAdopt
+            ? "bg-gray-600 cursor-not-allowed opacity-60"
+            : "bg-linear-to-r from-purple-600 to-green-600 hover:opacity-90"
+        } text-white font-semibold transition-all`}
+      >
+        {loading
+          ? "Processing..."
+          : isAdopted
+            ? "Already Adopted"
+            : isOwner
+              ? "Your Pet"
+              : "Adopt Now"}
+      </Button>
     </Card>
   );
 };

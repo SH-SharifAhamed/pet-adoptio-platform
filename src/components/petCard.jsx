@@ -71,7 +71,7 @@ const PetCard = ({ pets }) => {
         {/* Action Buttons */}
         <div className="flex gap-2 pt-1">
           <Link
-            href="/signin"
+            href="#"
             className="flex-1 text-center py-2.5 rounded-xl bg-linear-to-r from-purple-600 to-green-600 text-white text-sm font-semibold hover:opacity-90 hover:shadow-lg hover:shadow-green-500/25 active:scale-95 transition-all duration-300"
           >
             Adopt Now

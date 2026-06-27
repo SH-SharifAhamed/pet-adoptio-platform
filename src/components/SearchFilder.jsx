@@ -18,50 +18,50 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export default function PetSearch() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const router = useRouter();
-  const searchParams = useSearchParams() || "";
 
   const categories = [
     {
-      value: "dogs",
+      value: "Dog",
       label: "Dogs",
       icon: Dog,
       color: "text-orange-500",
       bg: "bg-orange-50",
     },
     {
-      value: "cats",
+      value: "Cat",
       label: "Cats",
       icon: Cat,
       color: "text-blue-500",
       bg: "bg-blue-50",
     },
     {
-      value: "birds",
+      value: "Bird",
       label: "Birds",
       icon: Bird,
       color: "text-sky-500",
       bg: "bg-sky-50",
     },
     {
-      value: "rabbits",
+      value: "Rabbit",
       label: "Rabbits",
       icon: Rabbit,
       color: "text-pink-500",
       bg: "bg-pink-50",
     },
     {
-      value: "horses",
+      value: "Horse",
       label: "Horses",
       icon: GiHorseshoe,
       color: "text-pink-500",
       bg: "bg-pink-50",
     },
     {
-      value: "pandas",
+      value: "Panda",
       label: "Panda",
       icon: SiPandas,
       color: "text-pink-500",
@@ -76,25 +76,30 @@ export default function PetSearch() {
     "Husky",
   ];
 
-  const handleSearch = async () => {
-    console.log("clicked");
-    
-    console.log(searchQuery);
-    
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/searchpets?search=${searchQuery}`,);
-    console.log(res);
-    
-    const data = await res.json();
-    console.log(data);
+  const updateFilters = (
+    nextQuery = searchQuery,
+    nextCategory = selectedCategory,
+  ) => {
+    const params = new URLSearchParams(searchParams?.toString() || "");
 
-    const params = new URLSearchParams(searchParams.toString());
-    if (searchQuery) {
-      params.set("search", searchQuery);
+    if (nextQuery) {
+      params.set("search", nextQuery);
     } else {
       params.delete("search");
     }
 
-    router.push(`/searchpets?${params.toString()}`);
+    if (nextCategory) {
+      params.set("species", nextCategory);
+    } else {
+      params.delete("species");
+    }
+
+    const queryString = params.toString();
+    router.push(queryString ? `/pets?${queryString}` : "/pets");
+  };
+
+  const handleSearch = () => {
+    updateFilters(searchQuery, selectedCategory);
   };
 
   return (
@@ -134,10 +139,15 @@ export default function PetSearch() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleSearch();
+                    }
+                  }}
                   placeholder="Search pets, breeds, categories..."
                   className="w-full h-14 pl-12 pr-5 rounded-2xl border border-gray-200/80 bg-white/80 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 focus:bg-white transition-all duration-300 text-base font-medium shadow-sm"
                 />
-                <p>Search: {searchQuery}</p>
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
@@ -167,7 +177,11 @@ export default function PetSearch() {
                 </div>
                 <select
                   value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  onChange={(e) => {
+                    const nextValue = e.target.value;
+                    setSelectedCategory(nextValue);
+                    updateFilters(searchQuery, nextValue);
+                  }}
                   className="w-full h-14 pl-12 pr-10 rounded-2xl border border-gray-200/80 bg-white/80 text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 focus:bg-white transition-all duration-300 appearance-none cursor-pointer font-medium shadow-sm"
                 >
                   <option value="">All Categories</option>
@@ -201,9 +215,11 @@ export default function PetSearch() {
                 return (
                   <button
                     key={cat.value}
-                    onClick={() =>
-                      setSelectedCategory(isActive ? "" : cat.value)
-                    }
+                    onClick={() => {
+                      const nextValue = isActive ? "" : cat.value;
+                      setSelectedCategory(nextValue);
+                      updateFilters(searchQuery, nextValue);
+                    }}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                       isActive
                         ? `${cat.bg} ${cat.color} ring-1 ring-current`
@@ -224,7 +240,10 @@ export default function PetSearch() {
           {popularSearches.map((term) => (
             <button
               key={term}
-              onClick={() => setSearchQuery(term)}
+              onClick={() => {
+                setSearchQuery(term);
+                updateFilters(term, selectedCategory);
+              }}
               className="px-3 py-1 rounded-full bg-white/60 border border-gray-200/80 text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-200 transition-all duration-300 text-sm font-medium"
             >
               {term}
