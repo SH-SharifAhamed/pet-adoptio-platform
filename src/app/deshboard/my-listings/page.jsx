@@ -24,7 +24,7 @@ const MyListings = async () => {
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/adopters/${user?.id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/pets/my`,
     {
       headers: {
         authorization: `Bearer ${token}`,

@@ -21,6 +21,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function EditModal({ data }) {
+
+  const { data: session } = authClient.useSession();
+    const user = session?.user;
   const {
     _id,
     petName,
@@ -47,17 +50,19 @@ export function EditModal({ data }) {
 
     try {
       const { data: tokenData } = await authClient.token();
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets/${_id}`, {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${tokenData?.token}`,
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/pets/${_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
+          body: JSON.stringify(pet),
         },
-        body: JSON.stringify(pet),
-      });
+      );
 
       const data = await res.json();
-      
 
       if (res.ok) {
         toast.success("Pet Updated Successfully!");
@@ -105,14 +110,12 @@ export function EditModal({ data }) {
                       </TextField>
                     </div>
 
-                    
                     <TextField defaultValue={Breed} name="Breed" isRequired>
                       <Label>Breed</Label>
                       <Input placeholder="Breed" className="rounded-2xl" />
                       <FieldError />
                     </TextField>
 
-                    
                     <div>
                       <Select
                         defaultValue={category}
@@ -294,9 +297,10 @@ export function EditModal({ data }) {
                     >
                       <Label>Owner Email</Label>
                       <Input
-                        //    value={user?.email}
-                        isreadOnly
-                        className="rounded-2xl bg-gray-100"
+                        value={session?.user?.email ?? "Loading..."}
+                        readOnly
+                        placeholder="Owner Email"
+                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 placeholder:text-gray-600 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300 outline-none cursor-not-allowed"
                       />
                       <FieldError />
                     </TextField>
